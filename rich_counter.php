@@ -44,8 +44,8 @@ if (!defined('WP_CONTENT_DIR')) define('WP_CONTENT_DIR', ABSPATH.'wp-content');
 if (!defined('WP_PLUGIN_URL')) define('WP_PLUGIN_URL', WP_CONTENT_URL.'/plugins');
 if (!defined('WP_PLUGIN_DIR')) define('WP_PLUGIN_DIR', WP_CONTENT_DIR.'/plugins');
 
-define('WP_PLUGIN_URL_', WP_PLUGIN_URL.'/rich_counter');
-define('WP_PLUGIN_DIR_', WP_PLUGIN_DIR.'/rich_counter');
+define('WP_PLUGIN_URL_', WP_PLUGIN_URL.'/rich-counter');
+define('WP_PLUGIN_DIR_', WP_PLUGIN_DIR.'/rich-counter');
 $count_robots=1;
 $count_others=1;
 $top_show=10;
