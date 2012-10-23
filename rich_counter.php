@@ -3,7 +3,7 @@
 Plugin Name: Rich Counter
 Plugin URI: http://soft.saschart.com
 Download: http://soft.saschart.com/download/rich_counter_1.0.zip
-Description: <strong>Rich Counter</strong> is a powerful, rich, small and easy to handle counter . It not delay page loading and consumes <strong>very few resources</strong> and retain data many years ago, make tops and details visits. To update periodically your ip2country database, visit <a href="http://soft.saschart.com">SaschArt</a> website.
+Description: <strong>Rich Counter</strong> is a powerful, rich, small and easy to handle counter . It not delay page loading and consumes <strong>very low resources</strong> and retain data many years ago, make tops and details visits. To update periodically your ip2country database, visit <a href="http://soft.saschart.com">SaschArt</a> website.
 Version: 1.0
 Author: SaschArt
 Author URI: http://www.saschart.com

@@ -1,6 +1,6 @@
 === Rich Counter ===
 Contributors: SaschArt
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=GAW2U83KESVUQ&lc=RO&item_name=SaschArt Free Software&currency_code=EUR&bn=PP%2dDonationsBF%3abut_donate%2egif%3aNonHosted
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=GAW2U83KESVUQ&lc=RO&item_name=SaschArt%20Free%20Software&currency_code=EUR&bn=PP%2dDonationsBF%3abut_donate%2egif%3aNonHosted
 Tags: counter, rich counter, statistics, visitors, seo, stats, traffic, analytics
 Requires at least: 2.5
 Tested up to: 3.4.2
