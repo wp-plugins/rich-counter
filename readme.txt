@@ -14,15 +14,15 @@ License: GPLv2
 <strong>Rich Counter</strong> is a powerful, rich, small and easy to handle counter . It not delay page loading and consumes <strong>very low resources</strong> and retain data many years ago, make tops and details visits. To update periodically your ip2country database, visit <a href="http://soft.saschart.com">SaschArt</a> website.
 
 <strong>Features:</strong>
- * Rich statistics in admin area
- * Store unique visitors by day from ip
- * Detect browser, operating system, country, ip, refferer, resolution
- * Robots information stored
- * Monthly tops from pages, refferer, keywords, robots, browsers, operating systems, resolutions, countries
- * Archive from last months tops
- * Last access with details information contain each page visited, time and reload
- * Graphic statistic by time, day, month and year
- * Archive date statistic from last months and years
+<li>Rich statistics in admin area</li>
+<li>Store unique visitors by day from ip</li>
+<li>Detect browser, operating system, country, ip, refferer, resolution</li>
+<li>Robots information stored</li>
+<li>Monthly tops from pages, refferer, keywords, robots, browsers, operating systems, resolutions, countries</li>
+<li>Archive from last months tops</li>
+<li>Last access with details information contain each page visited, time and reload</li>
+<li>Graphic statistic by time, day, month and year</li>
+<li>Archive date statistic from last months and years</li>
 
 = Website =
 http://soft.saschart.com
