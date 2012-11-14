@@ -72,7 +72,7 @@ if ($saschart->S('s_count_step')==1) {
     $counter_ref=strtolower($saschart->delEscape(urldecode($saschart->R('counter_ref'))));
   $counter_ref=$counter_ref;
   if ($counter_ref)
-    $counter_word=$saschart->cropTitle($saschart->getWord($counter_ref),35);
+    $counter_word=$saschart->cropText($saschart->getWord($counter_ref),35);
   $counter_res=$saschart->R('counter_res');
   $nowhour=date("ymdH");
   $nowday=date("ymd");
