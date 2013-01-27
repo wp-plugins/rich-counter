@@ -40,7 +40,7 @@ function mysqlQuery($query) {
   $result=mysql_query($query);
   if (!$result) {
     $mysql_error=mysql_error();
-    handlError(0,"MySQL error: <i>$query</i> $mysql_error",$this->SV('PHP_SELF'),0);
+    $this->handlError(0,"MySQL error: <i>$query</i> $mysql_error",$this->SV('PHP_SELF'),0);
   }
   return $result;
 }
