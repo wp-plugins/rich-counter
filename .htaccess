@@ -1,0 +1,3 @@
+RewriteEngine On
+
+RewriteRule \.(txt|log)$ - [L,F]
