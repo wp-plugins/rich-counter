@@ -1,5 +1,5 @@
 <?php
-/*Build by SaschArt all right reserved 2012 contact@saschart.com*/
+/*Build by SaschArt all right reserved 2014 contact@saschart.com*/
 
 class RichCounter {
   function R($in_var,$escape=1) {
@@ -43,9 +43,6 @@ function mysqlQuery($query) {
     $this->handlError(0,"MySQL error: <i>$query</i> $mysql_error",$this->SV('PHP_SELF'),0);
   }
   return $result;
-}
-function handlError($errno,$errstr,$errfile,$errline) {
-  $message="<b>ERROR</b> [$errno] $errstr, file $errfile, in line $errline<br>\r\n";
 }
 function cropUrl($text,$mx_chars=40) {
   $pattern_sep="\/\s_\.\?\!,:;";
@@ -273,7 +270,7 @@ function getCountry() {
 
   if (!$g_addr) $g_addr=getIp();
   $long = sprintf("%u", ip2long($g_addr));
-  $str_file = WP_PLUGIN_DIR_."/ip2country/".preg_replace("/\..*/","",$g_addr).".csv";
+  $str_file = WP_PLUGIN_DIR_RC."/ip2country/".preg_replace("/\..*/","",$g_addr).".csv";
   if (!is_readable($str_file)) {
     $str_file = "ip2country/".preg_replace("/\..*/","",$g_addr).".csv";
     if (!is_readable($str_file)) return "";
@@ -424,5 +421,15 @@ function writeCsvTop($csv_in,$amount,$link='',$icon='') {
   }
   return $out;
 }
+  function handlError($errno,$errstr,$errfile,$errline) {
+    $message="<b>ERROR</b> [$errno] $errstr, file $errfile, in line $errline<br>\r\n";
+    $str_file=WP_PLUGIN_DIR_RC.'/errors.log';
+    $message.=substr(file_get_contents($str_file),0,30000);
+    $sep="\r\n\r\n -  -  -  -  -  -  - ".date("Y.m.d H:i:s")." -  -  -  -  -  -  - \r\n";
+    $handle=fopen($str_file, 'w');
+    fwrite($handle, $sep.$message);
+    fclose($handle);
+    $sent_error="yes";
+  }
 }
 ?>

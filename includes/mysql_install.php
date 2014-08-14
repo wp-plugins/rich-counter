@@ -1,16 +1,16 @@
 <?php
-/*Build by SaschArt all right reserved 2012 contact@saschart.com*/
+/*Build by SaschArt all right reserved 2014 contact@saschart.com*/
 
-function jal_install() {
-  global $rich_counter_prefix, $rich_counter_version;
+function installMysqlRc() {
+  global $rich_counter_version;
 
   $arr_sql=array(
-    "CREATE TABLE IF NOT EXISTS ".$rich_counter_prefix."hold (
+    "CREATE TABLE IF NOT EXISTS rcounter_hold (
       time varchar(10) NOT NULL default '',
       ip varchar(20) NOT NULL default '',
       UNIQUE KEY ip (ip)
-    ) TYPE=MyISAM;",
-    "CREATE TABLE IF NOT EXISTS ".$rich_counter_prefix."last (
+    )",
+    "CREATE TABLE IF NOT EXISTS rcounter_last (
       time varchar(10) NOT NULL default '',
       time_last varchar(10) NOT NULL default '',
       ip varchar(20) NOT NULL default '',
@@ -23,14 +23,14 @@ function jal_install() {
       country char(2) NOT NULL default '',
       visits int(5) NOT NULL default '0',
       details text NOT NULL
-    ) TYPE=MyISAM;",
-    "CREATE TABLE IF NOT EXISTS ".$rich_counter_prefix."time (
+    )",
+    "CREATE TABLE IF NOT EXISTS rcounter_time (
       hours text NOT NULL,
       days text NOT NULL,
       months text NOT NULL,
       years text NOT NULL
-    ) TYPE=MyISAM;",
-    "CREATE TABLE IF NOT EXISTS ".$rich_counter_prefix."top (
+    )",
+    "CREATE TABLE IF NOT EXISTS rcounter_top (
       month varchar(4) NOT NULL default '',
       page text NOT NULL,
       page_rank int(11) NOT NULL default '0',
@@ -49,7 +49,7 @@ function jal_install() {
       country text NOT NULL,
       country_rank int(11) NOT NULL default '0',
       UNIQUE KEY month (month)
-    ) TYPE=MyISAM;");
+    )");
 
     foreach ($arr_sql as $sql)
       mysql_query($sql);

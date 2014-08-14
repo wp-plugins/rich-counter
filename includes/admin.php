@@ -1,10 +1,10 @@
 <?php
-/*Build by SaschArt all right reserved 2012 contact@saschart.com*/
+/*Build by SaschArt all right reserved 2014 contact@saschart.com*/
 
-add_action('admin_menu', 'adminMenu');
+add_action('admin_menu', 'adminMenuRc');
 
-function adminMenu() {
-  add_menu_page('Rich Counter - SaschArt', 'Rich Counter', 'manage_options', 'rich_counter_show', 'richCounterShow', WP_PLUGIN_URL_.'/images/tmp/icon.ico', 30);
+function adminMenuRc() {
+  add_menu_page('Rich Counter - SaschArt', 'Rich Counter', 'manage_options', 'rich_counter_show', 'richCounterShow', WP_PLUGIN_URL_RC.'/images/tmp/icon.ico', 30);
 }
 function richCounterShow() {
   global $saschart,$rich_counter_prefix,$top_show,$top,$month,$count_robots,$csv_cols,$csv_cols_,$csv_rows,$counter_imgs,$counter_src,$arr_countries,$address_whois;
@@ -12,12 +12,12 @@ function richCounterShow() {
     wp_die( __( 'You do not have sufficient permissions to access this page.'));
   }
 
-  include WP_PLUGIN_DIR_.'/includes/countries.php';
+  include WP_PLUGIN_DIR_RC.'/includes/countries.php';
 
   $action=$saschart->R('action');
   if (!$action) $action="top";
-  $counter_imgs=WP_PLUGIN_DIR_.'/images/';
-  $counter_src=WP_PLUGIN_URL_.'/images/';
+  $counter_imgs=WP_PLUGIN_DIR_RC.'/images/';
+  $counter_src=WP_PLUGIN_URL_RC.'/images/';
   $g_n='&nbsp;';
 
   $content="<br><table>
@@ -45,12 +45,12 @@ function richCounterShow() {
   if ($action=="top") {
 
     $on_users=0;
-    $query="SELECT time FROM ".$rich_counter_prefix."last WHERE time_last>$lasttime";
+    $query="SELECT time FROM rcounter_last WHERE time_last>$lasttime";
     $result = $saschart->mysqlQuery($query);
     $on_users=mysql_num_rows ($result);
     mysql_free_result($result);
 
-    $query="SELECT ref_rank, word_rank, browser_rank, os_rank, res_rank FROM ".$rich_counter_prefix."top";
+    $query="SELECT ref_rank, word_rank, browser_rank, os_rank, res_rank FROM rcounter_top";
     $result = $saschart->mysqlQuery($query);
     while ($row = mysql_fetch_row ($result)) {
       $ref_rank+=$row[0];
@@ -64,7 +64,7 @@ function richCounterShow() {
     }
     mysql_free_result($result);
 
-    $query="SELECT days, months, years FROM ".$rich_counter_prefix."time WHERE hours<>'' LIMIT 1";
+    $query="SELECT days, months, years FROM rcounter_time WHERE hours<>'' LIMIT 1";
     $result = $saschart->mysqlQuery($query);
     while ($row = mysql_fetch_row ($result)) {
       $lastday=$lastmonth=$lastyear=0;
@@ -98,7 +98,7 @@ function richCounterShow() {
     if (!$top) $top=$top_show;
 
 
-    $query="SELECT month FROM ".$rich_counter_prefix."top ORDER BY month";
+    $query="SELECT month FROM rcounter_top ORDER BY month";
     $result = $saschart->mysqlQuery($query);
     while ($row = mysql_fetch_row ($result)) {
       $arr_months[$row[0]]="20".preg_replace("/(\d\d)(\d\d)/","\\1.\\2",$row[0]);
@@ -114,7 +114,7 @@ function richCounterShow() {
     $arr_top[1000]="all";
     $arr_form_top[]=array(el=>'select',name=>'top',value=>$arr_top,onChange=>'submit()',cls=>'width40');
 
-    $query="SELECT page,page_rank,ref,ref_rank,word,word_rank,robot,robot_rank,browser,browser_rank,os,os_rank,res,res_rank,country,country_rank FROM ".$rich_counter_prefix."top WHERE month='$month' LIMIT 1";
+    $query="SELECT page,page_rank,ref,ref_rank,word,word_rank,robot,robot_rank,browser,browser_rank,os,os_rank,res,res_rank,country,country_rank FROM rcounter_top WHERE month='$month' LIMIT 1";
     $result = $saschart->mysqlQuery($query);
     while ($row = mysql_fetch_row ($result)) {
       if ($count_robots) {
@@ -250,7 +250,7 @@ elseif ($action=="last") {
     $order="desc";
   }
   $cell=1;
-  $query="SELECT ".implode(",",$tb_fields)." FROM ".$rich_counter_prefix."last ORDER BY $sort_field $order";
+  $query="SELECT ".implode(",",$tb_fields)." FROM rcounter_last ORDER BY $sort_field $order";
   $result = $saschart->mysqlQuery($query);
   while ($row = mysql_fetch_row ($result)) {
     $i=0;
@@ -337,7 +337,7 @@ else {
 }
 elseif ($action=="details") {
   $cell=1;
-  $query="SELECT ip,browser,agent,os,res,country,ref,word,visits,details FROM ".$rich_counter_prefix."last WHERE time_last='".$saschart->R('time')."' AND ip='".$saschart->R('ip')."' LIMIT 1";
+  $query="SELECT ip,browser,agent,os,res,country,ref,word,visits,details FROM rcounter_last WHERE time_last='".$saschart->R('time')."' AND ip='".$saschart->R('ip')."' LIMIT 1";
   $result = $saschart->mysqlQuery($query);
   while ($row = mysql_fetch_row ($result)) {
     $ip=$row[0];
@@ -411,7 +411,7 @@ elseif ($action=="time") {
   $year=$saschart->R('year');
   if (!$month) $month=$nowmonth;
   if (!$year) $year=$nowyear;
-  $query="SELECT hours, days, months, years FROM ".$rich_counter_prefix."time WHERE hours<>'' OR months='$month' OR years='$year' ORDER BY hours, years, months";
+  $query="SELECT hours, days, months, years FROM rcounter_time WHERE hours<>'' OR months='$month' OR years='$year' ORDER BY hours, years, months";
   $result = $saschart->mysqlQuery($query);
   while ($row = mysql_fetch_row ($result)) {
     if ($year==$nowyear and $month==$nowmonth) {
@@ -506,29 +506,29 @@ elseif ($action=="clean") {
       $str_date="20$date";
     if ($confirm=="yes") {
       if ($date=="all") {
-        $querydel="DELETE FROM ".$rich_counter_prefix."hold";
+        $querydel="DELETE FROM rcounter_hold";
         $saschart->mysqlQuery($querydel);
-        $querydel="DELETE FROM ".$rich_counter_prefix."last";
+        $querydel="DELETE FROM rcounter_last";
         $saschart->mysqlQuery($querydel);
-        $querydel="DELETE FROM ".$rich_counter_prefix."time";
+        $querydel="DELETE FROM rcounter_time";
         $saschart->mysqlQuery($querydel);
-        $querydel="DELETE FROM ".$rich_counter_prefix."top";
+        $querydel="DELETE FROM rcounter_top";
         $saschart->mysqlQuery($querydel);
         $message="Successfully delete all the stats!";
       }
       else {
         if ($submit=='Clean the top stats') {
-          $querydel="DELETE FROM ".$rich_counter_prefix."top WHERE month<='$date'";
+          $querydel="DELETE FROM rcounter_top WHERE month<='$date'";
           $saschart->mysqlQuery($querydel);
           $message="Successfully clean the top stats for old months then $str_date!";
         }
         elseif ($submit=='Clean details days') {
-          $querydel="DELETE FROM ".$rich_counter_prefix."time WHERE hours='' AND months<='$date' AND years=''";
+          $querydel="DELETE FROM rcounter_time WHERE hours='' AND months<='$date' AND years=''";
           $saschart->mysqlQuery($querydel);
           $message="Successfully clean the days details for old months then $str_date!";
         }
         elseif ($submit=='Clean details months') {
-          $querydel="DELETE FROM ".$rich_counter_prefix."time WHERE hours='' AND days='' AND years<='$date'";
+          $querydel="DELETE FROM rcounter_time WHERE hours='' AND days='' AND years<='$date'";
           $saschart->mysqlQuery($querydel);
           $message="Successfully clean the months details for old years then $str_date!";
         }
@@ -545,7 +545,7 @@ elseif ($action=="clean") {
   }
   else {
 
-    $query="SELECT month FROM ".$rich_counter_prefix."top WHERE month<'".date('ym')."' ORDER BY month";
+    $query="SELECT month FROM rcounter_top WHERE month<'".date('ym')."' ORDER BY month";
     $result = $saschart->mysqlQuery($query);
     while ($row = mysql_fetch_row ($result)) {
       $arr_months[$row[0]]="20".preg_replace("/(\d\d)(\d\d)/","\\1.\\2",$row[0]);
@@ -557,7 +557,7 @@ elseif ($action=="clean") {
     }
 
     unset($arr_months);
-    $query="SELECT months FROM ".$rich_counter_prefix."time WHERE hours='' AND years='' ORDER BY months";
+    $query="SELECT months FROM rcounter_time WHERE hours='' AND years='' ORDER BY months";
     $result = $saschart->mysqlQuery($query);
     while ($row = mysql_fetch_row ($result)) {
       $arr_months[$row[0]]="20".preg_replace("/(\d\d)(\d\d)/","\\1.\\2",$row[0]);
@@ -567,7 +567,7 @@ elseif ($action=="clean") {
       $arr_form[]=array(el=>'input',type=>'submit',name=>'submit',value=>'Clean details days',onClick=>'document.form.date.value=document.form.month_time.value',cls=>'button height20');
       $arr_form[]=array(lb=>'older then'.$g_n,el=>'select',name=>'month_time',value=>$arr_months);
     }
-    $query="SELECT years FROM ".$rich_counter_prefix."time WHERE hours='' AND days='' ORDER BY years";
+    $query="SELECT years FROM rcounter_time WHERE hours='' AND days='' ORDER BY years";
     $result = $saschart->mysqlQuery($query);
     while ($row = mysql_fetch_row ($result)) {
       $arr_years[$row[0]]="20$row[0]";
@@ -599,7 +599,7 @@ elseif ($action=="clean") {
 }
 }
 
-$content="<link rel=\"stylesheet\" type=\"text/css\" href=\"".WP_PLUGIN_URL_."/style.css\">
+$content="<link rel=\"stylesheet\" type=\"text/css\" href=\"".WP_PLUGIN_URL_RC."/style.css\">
 <table width=\"100%\">
   <tr><td align=\"center\">$content</td></tr>
   <tr><td class=\"top_line\">$g_n</td></tr>
