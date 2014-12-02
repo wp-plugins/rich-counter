@@ -171,7 +171,7 @@ function getBrowser() {
   foreach($arr_browsers as $arr_var=>$arr_val) {
     if (preg_match("/$arr_val/i",$this->SV('HTTP_USER_AGENT'))) return $arr_var;
   }
-  return str_replace("'","",preg_replace("/^(\w+).*/","\\1",$this->SV('HTTP_USER_AGENT')));
+  return str_replace("'","",preg_replace("/^(\w+).*/","\\1",strip_tags($this->SV('HTTP_USER_AGENT'))));
 }
 function getRobot() {
   if (!$this->SV('HTTP_USER_AGENT'))
